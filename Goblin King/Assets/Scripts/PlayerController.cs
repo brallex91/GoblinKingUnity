@@ -34,6 +34,12 @@ public class PlayerController : MonoBehaviour
     public Transform rangePoint;
     public Vector3 missRange;
 
+    public LineRenderer shootLine;
+    public float shotRemainTime = .5f;
+    private float shotRemainCounter;
+
+    public GameObject redBloodHitEffect, wallMissEffect;
+
     private void Start()
     {
         moveTarget = transform.position;
@@ -43,6 +49,10 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
 
         UpdateHealthDisplay();
+
+        shootLine.transform.position = Vector3.zero;
+        shootLine.transform.rotation = Quaternion.identity;
+        shootLine.transform.SetParent(null);
     }
     private void Update()
     {
@@ -58,6 +68,16 @@ public class PlayerController : MonoBehaviour
 
                     GameManager.instance.FinishedMovement();
                 }
+            }
+        }
+
+        if (shotRemainCounter > 0)
+        {
+            shotRemainCounter -= Time.deltaTime;
+
+            if (shotRemainCounter <= 0)
+            {
+                shootLine.gameObject.SetActive(false);
             }
         }
     }
@@ -195,18 +215,31 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(name + "shot Target " + rangeTargets[currentRangeTarget].name);
 
                 rangeTargets[currentRangeTarget].TakeDamage(rangeDamage);
+
+                Instantiate(redBloodHitEffect, hit.point, Quaternion.identity);
             }
             else
             {
                 Debug.Log(name + "missed Target " + rangeTargets[currentRangeTarget].name + "!");
 
                 PlayerInputMenu.instance.ShowErrorText("Shot missed!");
+
+                Instantiate(wallMissEffect, hit.point, Quaternion.identity);
             }
+
+            shootLine.SetPosition(0, rangePoint.position);
+            shootLine.SetPosition(1, hit.point);
         }
         else
         {
             Debug.Log(name + "missed Target " + rangeTargets[currentRangeTarget].name + "!");
             PlayerInputMenu.instance.ShowErrorText("Shot missed!");
+
+            shootLine.SetPosition(0, rangePoint.position);
+            shootLine.SetPosition(1, rangePoint.position + (rangeDirection * range));
         }
+
+        shootLine.gameObject.SetActive(true);
+        shotRemainCounter = shotRemainTime;
     }
 }
