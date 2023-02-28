@@ -784,7 +784,7 @@ MonoBehaviour:
   rangeTargets: []
   currentRangeTarget: 0
   rangePoint: {fileID: 1261728836}
-  missRange: {x: 0.7, y: 0.5, z: 0.7}
+  missRange: {x: 0.7, y: 0.25, z: 0.7}
   shootLine: {fileID: 2145974411}
   shotRemainTime: 0.5
   redBloodHitEffect: {fileID: 3144192983511302837, guid: 157b478fbcb852341a0cc468b329885d,

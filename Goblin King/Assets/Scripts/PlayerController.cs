@@ -196,11 +196,12 @@ public class PlayerController : MonoBehaviour
         Vector3 targetPoint = new Vector3(rangeTargets[currentRangeTarget].transform.position.x,
             rangeTargets[currentRangeTarget].rangePoint.position.y,
             rangeTargets[currentRangeTarget].transform.position.z);
+        targetPoint.y = Random.Range(targetPoint.y, rangeTargets[currentRangeTarget].transform.position.y + .25f);
 
         Vector3 targetOffset = new Vector3(Random.Range(-missRange.x, missRange.x),
             Random.Range(-missRange.y, missRange.y),
             Random.Range(-missRange.z, missRange.z));
-        targetOffset = targetOffset * (Vector3.Distance(targetPoint, rangePoint.position) / range);
+        targetOffset = targetOffset * (Vector3.Distance(rangeTargets[currentRangeTarget].transform.position, transform.position) / range);
         targetPoint += targetOffset;
 
         Vector3 rangeDirection = (targetPoint - rangePoint.position).normalized;
@@ -241,5 +242,42 @@ public class PlayerController : MonoBehaviour
 
         shootLine.gameObject.SetActive(true);
         shotRemainCounter = shotRemainTime;
+    }
+
+    public float CheckRangeChance()
+    {
+        float rangeChance = 0f;
+
+        RaycastHit hit;
+
+        Vector3 targetPoint = new Vector3(rangeTargets[currentRangeTarget].transform.position.x,
+            rangeTargets[currentRangeTarget].rangePoint.position.y,
+            rangeTargets[currentRangeTarget].transform.position.z);
+
+        Vector3 rangeDirection = (targetPoint - rangePoint.position).normalized;
+        Debug.DrawRay(rangePoint.position, rangeDirection * range, Color.red, 1f);
+        if (Physics.Raycast(rangePoint.position, rangeDirection, out hit, range))
+        {
+            if (hit.collider.gameObject == rangeTargets[currentRangeTarget].gameObject)
+            {
+                rangeChance += 50f;
+            }
+        }
+
+        targetPoint.y = rangeTargets[currentRangeTarget].transform.position.y + .25f;
+        rangeDirection = (targetPoint - rangePoint.position).normalized;
+        Debug.DrawRay(rangePoint.position, rangeDirection * range, Color.red, 1f);
+        if (Physics.Raycast(rangePoint.position, rangeDirection, out hit, range))
+        {
+            if (hit.collider.gameObject == rangeTargets[currentRangeTarget].gameObject)
+            {
+                rangeChance += 50f;
+            }
+        }
+
+        rangeChance = rangeChance * .95f;
+        rangeChance *= 1f - (Vector3.Distance(rangeTargets[currentRangeTarget].transform.position, transform.position) / range);
+
+        return rangeChance;
     }
 }

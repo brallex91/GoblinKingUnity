@@ -14,6 +14,8 @@ public class PlayerInputMenu : MonoBehaviour
     public float errorDisplayTime;
     private float errorCounter;
 
+    public TMP_Text hitChanceText;
+
     private void Awake()
     {
         instance = this;
@@ -161,6 +163,7 @@ public class PlayerInputMenu : MonoBehaviour
     {
         HideMenus();
         rangeMenu.SetActive(true);
+        UpdateHitChance();
     }
 
     public void HideRangeMenu()
@@ -197,6 +200,8 @@ public class PlayerInputMenu : MonoBehaviour
         }
 
         GameManager.instance.targetPoint.transform.position = GameManager.instance.activePlayer.rangeTargets[GameManager.instance.activePlayer.currentRangeTarget].transform.position;
+
+        UpdateHitChance();
     }
 
     public void Shoot()
@@ -208,6 +213,13 @@ public class PlayerInputMenu : MonoBehaviour
 
         GameManager.instance.targetPoint.SetActive(false);
         StartCoroutine(WaitToEndActionCo(1f));
+    }
+
+    public void UpdateHitChance()
+    {
+        float hitChance = Random.Range(50f, 95f);
+
+        hitChanceText.text = "Change To Hit : " + GameManager.instance.activePlayer.CheckRangeChance().ToString("F1") + "%";
     }
 }
 
