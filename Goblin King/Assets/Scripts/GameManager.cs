@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject targetPoint;
 
+    public bool shouldSpawnAtRandomPoints;
+    public List<Transform> playerSpawnPoints = new List<Transform>();
+    public List<Transform> enemySpawnPoints = new List<Transform>();
+
     private void Awake()
     {
         instance = this;
@@ -67,6 +71,34 @@ public class GameManager : MonoBehaviour
         }
 
         activePlayer = allCharacters[0];
+
+        if (shouldSpawnAtRandomPoints)
+        {
+            foreach (PlayerController character in playerTeam)
+            {
+                if (playerSpawnPoints.Count > 0)
+                {
+                    int position = Random.Range(0, playerSpawnPoints.Count);
+
+                    character.transform.position = playerSpawnPoints[position].position;
+
+                    playerSpawnPoints.RemoveAt(position);
+                }
+            }
+
+            foreach (PlayerController character in enemyTeam)
+            {
+                if (enemySpawnPoints.Count > 0)
+                {
+                    int position = Random.Range(0, enemySpawnPoints.Count);
+
+                    character.transform.position = enemySpawnPoints[position].position;
+
+                    enemySpawnPoints.RemoveAt(position);
+                }
+            }
+        }
+
         CameraController.instance.SetMoveTarget(activePlayer.transform.position);
 
         currentCharacter = -1;
