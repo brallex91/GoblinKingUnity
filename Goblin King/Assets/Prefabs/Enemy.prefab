@@ -91,6 +91,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5908635, guid: 9bbc2476c7faeba45a19645ae5e0c356, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1261728836, guid: 9bbc2476c7faeba45a19645ae5e0c356, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.087
@@ -105,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1359336941, guid: 9bbc2476c7faeba45a19645ae5e0c356, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1825836715, guid: 9bbc2476c7faeba45a19645ae5e0c356, type: 3}
       propertyPath: m_Color.b
@@ -181,6 +185,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6397967475396479175, guid: 9bbc2476c7faeba45a19645ae5e0c356,
         type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 158478018}
+    - target: {fileID: 6397967475396479175, guid: 9bbc2476c7faeba45a19645ae5e0c356,
+        type: 3}
       propertyPath: isEnemy
       value: 1
       objectReference: {fileID: 0}
@@ -191,9 +200,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bbc2476c7faeba45a19645ae5e0c356, type: 3}
+--- !u!114 &5687485042318154605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6397967475396479175, guid: 9bbc2476c7faeba45a19645ae5e0c356,
+    type: 3}
+  m_PrefabInstance: {fileID: 1595439778117587882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687485042318154609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be61ff553c016d459e3b9c07d8f5886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5687485042318154606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6397967475396479172, guid: 9bbc2476c7faeba45a19645ae5e0c356,
     type: 3}
   m_PrefabInstance: {fileID: 1595439778117587882}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5687485042318154609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6397967475396479195, guid: 9bbc2476c7faeba45a19645ae5e0c356,
+    type: 3}
+  m_PrefabInstance: {fileID: 1595439778117587882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &158478018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687485042318154609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4120b86fe7a6c468aa5b13676ec893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 5687485042318154605}
+  waitBeforeAction: 1
+  waitAfterActing: 1
+  waitBeforeShoot: 0.75
+  moveChance: 60
+  defendChance: 25
+  skipChance: 15
+  ignoreShootChange: 100
+  moveRandomChance: 20

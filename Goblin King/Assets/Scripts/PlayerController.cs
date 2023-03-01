@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
 
     public NavMeshAgent navMeshAgent;
     private bool isMoving;
+
     public bool isEnemy;
+    public AIBrain brain;
 
     public float meleeRange = 1.5f;
     public List<PlayerController> meleeTargets = new List<PlayerController>();

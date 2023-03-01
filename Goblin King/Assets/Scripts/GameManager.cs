@@ -97,6 +97,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 PlayerInputMenu.instance.HideMenus();
+
+                activePlayer.brain.SelectAction();
             }
         }
 
@@ -116,7 +118,6 @@ public class GameManager : MonoBehaviour
 
         turnPointsRemaining = totalTurnPoints;
 
-        //SKIP ALL ENEMY-TURNS!
         if (activePlayer.isEnemy == false)
         {
             PlayerInputMenu.instance.ShowInputMenu();
@@ -127,7 +128,7 @@ public class GameManager : MonoBehaviour
             PlayerInputMenu.instance.HideMenus();
             PlayerInputMenu.instance.turnPointText.gameObject.SetActive(false);
 
-            StartCoroutine(AISkipCo());
+            activePlayer.brain.SelectAction();
         }
 
         currentActionCost = 1;
