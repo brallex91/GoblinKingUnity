@@ -101,6 +101,8 @@ public class PlayerInputMenu : MonoBehaviour
 
             GameManager.instance.targetPoint.SetActive(true);
             GameManager.instance.targetPoint.transform.position = GameManager.instance.activePlayer.meleeTargets[GameManager.instance.activePlayer.currentMeleeTarget].transform.position;
+
+            GameManager.instance.activePlayer.LookAtTarget(GameManager.instance.activePlayer.meleeTargets[GameManager.instance.activePlayer.currentMeleeTarget].transform);
         }
         else
         {
@@ -125,6 +127,8 @@ public class PlayerInputMenu : MonoBehaviour
         yield return new WaitForSeconds(timeToWait);
 
         GameManager.instance.SpendTurnPoints();
+
+        CameraController.instance.SetMoveTarget(GameManager.instance.activePlayer.transform.position);
     }
 
     public void NextMeleeTarget()
@@ -136,6 +140,8 @@ public class PlayerInputMenu : MonoBehaviour
         }
 
         GameManager.instance.targetPoint.transform.position = GameManager.instance.activePlayer.meleeTargets[GameManager.instance.activePlayer.currentMeleeTarget].transform.position;
+
+        GameManager.instance.activePlayer.LookAtTarget(GameManager.instance.activePlayer.meleeTargets[GameManager.instance.activePlayer.currentMeleeTarget].transform);
     }
 
     public void ShowErrorText(string messageToShow)
@@ -172,6 +178,8 @@ public class PlayerInputMenu : MonoBehaviour
         ShowInputMenu();
 
         GameManager.instance.targetPoint.SetActive(false);
+
+        CameraController.instance.SetMoveTarget(GameManager.instance.activePlayer.transform.position);
     }
 
     public void CheckRange()
@@ -184,6 +192,9 @@ public class PlayerInputMenu : MonoBehaviour
 
             GameManager.instance.targetPoint.SetActive(true);
             GameManager.instance.targetPoint.transform.position = GameManager.instance.activePlayer.rangeTargets[GameManager.instance.activePlayer.currentRangeTarget].transform.position;
+
+            GameManager.instance.activePlayer.LookAtTarget(GameManager.instance.activePlayer.rangeTargets[GameManager.instance.activePlayer.currentRangeTarget].transform);
+            CameraController.instance.SetRangeView();
         }
         else
         {
@@ -202,6 +213,10 @@ public class PlayerInputMenu : MonoBehaviour
         GameManager.instance.targetPoint.transform.position = GameManager.instance.activePlayer.rangeTargets[GameManager.instance.activePlayer.currentRangeTarget].transform.position;
 
         UpdateHitChance();
+
+        GameManager.instance.activePlayer.LookAtTarget(GameManager.instance.activePlayer.rangeTargets[GameManager.instance.activePlayer.currentRangeTarget].transform);
+
+        CameraController.instance.SetRangeView();
     }
 
     public void Shoot()
@@ -220,6 +235,12 @@ public class PlayerInputMenu : MonoBehaviour
         float hitChance = Random.Range(50f, 95f);
 
         hitChanceText.text = "Change To Hit : " + GameManager.instance.activePlayer.CheckRangeChance().ToString("F1") + "%";
+    }
+
+    public void Defend()
+    {
+        GameManager.instance.activePlayer.SetDefending(true);
+        GameManager.instance.EndTurn();
     }
 }
 

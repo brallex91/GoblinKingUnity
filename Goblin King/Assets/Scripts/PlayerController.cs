@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
     public float shotRemainTime = .5f;
     private float shotRemainCounter;
 
+    //Defend
+    public GameObject defendObject;
+    public bool isDefending;
+
     public GameObject redBloodHitEffect, wallMissEffect;
 
     private void Start()
@@ -128,6 +132,11 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damageToTake)
     {
+        if (isDefending == true)
+        {
+            damageToTake += .5f;
+        }
+
         currentHealth -= damageToTake;
 
         if (currentHealth <= 0)
@@ -279,5 +288,17 @@ public class PlayerController : MonoBehaviour
         rangeChance *= 1f - (Vector3.Distance(rangeTargets[currentRangeTarget].transform.position, transform.position) / range);
 
         return rangeChance;
+    }
+
+    public void LookAtTarget(Transform target)
+    {
+        transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z), Vector3.up);
+    }
+
+    public void SetDefending(bool shouldDefend)
+    {
+        isDefending = shouldDefend;
+
+        defendObject.SetActive(isDefending);
     }
 }

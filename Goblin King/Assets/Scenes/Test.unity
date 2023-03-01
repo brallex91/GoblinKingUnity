@@ -1267,7 +1267,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1223025392}
+      objectReference: {fileID: 1223025397}
+    - target: {fileID: 6908824961342102561, guid: e01731ef3b9501e4a99c373f69fe4624,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Defend
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908824961342102561, guid: e01731ef3b9501e4a99c373f69fe4624,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerInputMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908824961342102561, guid: e01731ef3b9501e4a99c373f69fe4624,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6908824961342102591, guid: e01731ef3b9501e4a99c373f69fe4624,
         type: 3}
       propertyPath: m_Name
@@ -4529,6 +4544,8 @@ MonoBehaviour:
   moveSpeed: 30
   manualMoveSpeed: 10
   rotateSpeed: 10
+  theCamera: {fileID: 961739753}
+  rangeCameraViewAngle: 30
 --- !u!4 &2002159538
 Transform:
   m_ObjectHideFlags: 0
@@ -4977,7 +4994,7 @@ PrefabInstance:
     - target: {fileID: 6397967475396479172, guid: 9bbc2476c7faeba45a19645ae5e0c356,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.19
+      value: 0.549
       objectReference: {fileID: 0}
     - target: {fileID: 6397967475396479172, guid: 9bbc2476c7faeba45a19645ae5e0c356,
         type: 3}
@@ -4987,7 +5004,7 @@ PrefabInstance:
     - target: {fileID: 6397967475396479172, guid: 9bbc2476c7faeba45a19645ae5e0c356,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.67
+      value: 7.337
       objectReference: {fileID: 0}
     - target: {fileID: 6397967475396479172, guid: 9bbc2476c7faeba45a19645ae5e0c356,
         type: 3}

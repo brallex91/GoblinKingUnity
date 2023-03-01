@@ -119,8 +119,6 @@ public class GameManager : MonoBehaviour
         //SKIP ALL ENEMY-TURNS!
         if (activePlayer.isEnemy == false)
         {
-            //MoveGrid.instance.ShowPointsInRange(activePlayer.moveRange, activePlayer.transform.position);
-
             PlayerInputMenu.instance.ShowInputMenu();
             PlayerInputMenu.instance.turnPointText.gameObject.SetActive(true);
         }
@@ -133,7 +131,10 @@ public class GameManager : MonoBehaviour
         }
 
         currentActionCost = 1;
+
         PlayerInputMenu.instance.UpdateTurnPointText(turnPointsRemaining);
+
+        activePlayer.SetDefending(false);
     }
 
     public IEnumerator AISkipCo()

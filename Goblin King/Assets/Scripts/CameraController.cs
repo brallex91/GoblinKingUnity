@@ -12,10 +12,20 @@ public class CameraController : MonoBehaviour
     private float currentAngle;
     public float rotateSpeed;
 
+    public Transform theCamera;
+    public float rangeCameraViewAngle = 30f;
+    private float targetCameraViewAngle;
+    private bool isRangeView;
+
     private void Awake()
     {
         instance = this;
         moveTarget = transform.position;
+    }
+
+    private void Start()
+    {
+        targetCameraViewAngle = 45f;
     }
 
     private void Update()
@@ -61,13 +71,32 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        targetRotation = (90f * currentAngle) + 45f;
+        if (isRangeView == false)
+        {
+            targetRotation = (90f * currentAngle) + 45f;
+        }
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetRotation, 0f), rotateSpeed * Time.deltaTime);
+
+        theCamera.localRotation = Quaternion.Slerp(theCamera.localRotation, Quaternion.Euler(targetCameraViewAngle, 0f, 0f), rotateSpeed * Time.deltaTime);
     }
 
     public void SetMoveTarget(Vector3 newTarget)
     {
         moveTarget = newTarget;
+
+        targetCameraViewAngle = 45f;
+        isRangeView = false;
+    }
+
+    public void SetRangeView()
+    {
+        moveTarget = GameManager.instance.activePlayer.transform.position;
+
+        targetRotation = GameManager.instance.activePlayer.transform.rotation.eulerAngles.y;
+
+        targetCameraViewAngle = rangeCameraViewAngle;
+
+        isRangeView = true;
     }
 }
