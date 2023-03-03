@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject targetPoint;
+
+    public bool matchEnded;
 
     [Header("Characters")]
     public PlayerController activePlayer;
@@ -22,8 +25,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool shouldSpawnAtRandomPoints;
     [SerializeField] private List<Transform> playerSpawnPoints = new List<Transform>();
     [SerializeField] private List<Transform> enemySpawnPoints = new List<Transform>();
-
-    public GameObject targetPoint;
 
     private void Awake()
     {
@@ -173,5 +174,20 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         EndTurn();
+    }
+
+    public void CheckForVictory()
+    {
+
+    }
+
+    public void PlayerWins()
+    {
+
+    }
+
+    public void PlayerLoses()
+    {
+
     }
 }

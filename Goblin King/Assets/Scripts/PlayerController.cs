@@ -143,6 +143,11 @@ public class PlayerController : MonoBehaviour
         meleeTargets[currentMeleeTarget].TakeDamage(meleeDamage);
 
         animator.SetTrigger("doMelee");
+
+        if (isEnemy == false)
+        {
+            SFXManager.instance.PlayDealDamage();
+        }
     }
 
     public void TakeDamage(float damageToTake)
@@ -171,10 +176,23 @@ public class PlayerController : MonoBehaviour
             }
 
             animator.SetTrigger("die");
+            if (isEnemy == false)
+            {
+                SFXManager.instance.PlayDeath();
+            }
+            else
+            {
+                SFXManager.instance.PlayLaugh();
+            }
+            //ADD ENEMY SFX          
         }
         else
         {
             animator.SetTrigger("takeDamage");
+            if (isEnemy == false)
+            {
+                SFXManager.instance.PlayTakeDamage();
+            }
         }
 
         UpdateHealthDisplay();
@@ -258,6 +276,11 @@ public class PlayerController : MonoBehaviour
 
             shootLine.SetPosition(0, rangePoint.position);
             shootLine.SetPosition(1, hit.point);
+
+            if (isEnemy == false)
+            {
+                SFXManager.instance.PlayDealRangedDamage();
+            }
         }
         else
         {
@@ -273,6 +296,8 @@ public class PlayerController : MonoBehaviour
         if (isThrower)
         {
             animator.SetTrigger("doThrow");
+
+            SFXManager.instance.PlayDealRangedDamage();
         }
     }
 
