@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     public AIBrain brain;
     public bool isEnemy;
+    public bool isThrower;
 
     [Header("Health")]
     [SerializeField][Range(0f, 100f)] private float maxHealth = 10f;
@@ -173,8 +174,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // Insert take-damage animation here
-            //animator.SetTrigger("takeDamage");
+            animator.SetTrigger("takeDamage");
         }
 
         UpdateHealthDisplay();
@@ -270,6 +270,10 @@ public class PlayerController : MonoBehaviour
 
         shootLine.gameObject.SetActive(true);
         shotRemainCounter = shotRemainTime;
+        if (isThrower)
+        {
+            animator.SetTrigger("doThrow");
+        }
     }
 
     public float CheckRangeChance()
