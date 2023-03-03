@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Health")]
     [SerializeField][Range(0f, 100f)] private float maxHealth = 10f;
-    [SerializeField][Range(0f, 100f)] private float currentHealth;
+    [Range(0f, 100f)] public float currentHealth;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private Slider healthSlider;
 

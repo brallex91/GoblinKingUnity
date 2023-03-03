@@ -116,58 +116,67 @@ public class GameManager : MonoBehaviour
     {
         turnPointsRemaining -= currentActionCost;
 
-        if (turnPointsRemaining <= 0)
+        CheckForVictory();
+
+        if (matchEnded == false)
         {
-            EndTurn();
-        }
-        else
-        {
-            if (activePlayer.isEnemy == false)
+            if (turnPointsRemaining <= 0)
             {
-                PlayerInputMenu.instance.ShowInputMenu();
+                EndTurn();
             }
             else
             {
-                PlayerInputMenu.instance.HideMenus();
+                if (activePlayer.isEnemy == false)
+                {
+                    PlayerInputMenu.instance.ShowInputMenu();
+                }
+                else
+                {
+                    PlayerInputMenu.instance.HideMenus();
 
-                activePlayer.brain.SelectAction();
+                    activePlayer.brain.SelectAction();
+                }
             }
         }
-
         PlayerInputMenu.instance.UpdateTurnPointText(turnPointsRemaining);
     }
 
     public void EndTurn()
     {
-        currentCharacter++;
-        if (currentCharacter >= allCharacters.Count)
+        CheckForVictory();
+
+        if (matchEnded == false)
         {
-            currentCharacter = 0;
+            currentCharacter++;
+            if (currentCharacter >= allCharacters.Count)
+            {
+                currentCharacter = 0;
+            }
+            activePlayer = allCharacters[currentCharacter];
+
+            CameraController.instance.SetMoveTarget(activePlayer.transform.position);
+
+            turnPointsRemaining = totalTurnPoints;
+
+            if (activePlayer.isEnemy == false)
+            {
+                PlayerInputMenu.instance.ShowInputMenu();
+                PlayerInputMenu.instance.turnPointText.gameObject.SetActive(true);
+            }
+            else
+            {
+                PlayerInputMenu.instance.HideMenus();
+                PlayerInputMenu.instance.turnPointText.gameObject.SetActive(false);
+
+                activePlayer.brain.SelectAction();
+            }
+
+            currentActionCost = 1;
+
+            PlayerInputMenu.instance.UpdateTurnPointText(turnPointsRemaining);
+
+            activePlayer.SetDefending(false);
         }
-        activePlayer = allCharacters[currentCharacter];
-
-        CameraController.instance.SetMoveTarget(activePlayer.transform.position);
-
-        turnPointsRemaining = totalTurnPoints;
-
-        if (activePlayer.isEnemy == false)
-        {
-            PlayerInputMenu.instance.ShowInputMenu();
-            PlayerInputMenu.instance.turnPointText.gameObject.SetActive(true);
-        }
-        else
-        {
-            PlayerInputMenu.instance.HideMenus();
-            PlayerInputMenu.instance.turnPointText.gameObject.SetActive(false);
-
-            activePlayer.brain.SelectAction();
-        }
-
-        currentActionCost = 1;
-
-        PlayerInputMenu.instance.UpdateTurnPointText(turnPointsRemaining);
-
-        activePlayer.SetDefending(false);
     }
 
     public IEnumerator AISkipCo()
@@ -178,16 +187,48 @@ public class GameManager : MonoBehaviour
 
     public void CheckForVictory()
     {
+        bool allDead = true;
 
+        foreach (PlayerController character in playerTeam)
+        {
+            if (character.currentHealth > 0)
+            {
+                allDead = false;
+            }
+        }
+
+        if (allDead)
+        {
+            PlayerLoses();
+        }
+        else
+        {
+            allDead = true;
+            foreach (PlayerController character in enemyTeam)
+            {
+                if (character.currentHealth > 0)
+                {
+                    allDead = false;
+                }
+            }
+            if (allDead)
+            {
+                PlayerWins();
+            }
+        }
     }
 
     public void PlayerWins()
     {
+        Debug.Log("Player Wins");
 
+        matchEnded = true;
     }
 
     public void PlayerLoses()
     {
+        Debug.Log("Player Loses");
 
+        matchEnded = true;
     }
 }
