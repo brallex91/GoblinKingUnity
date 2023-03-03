@@ -1481,7 +1481,7 @@ MonoBehaviour:
   - {fileID: 837198551}
   - {fileID: 346883171}
   matchEnded: 0
-  levelToLoad: NewScene
+  levelToLoad: MainMenu
 --- !u!4 &635893856
 Transform:
   m_ObjectHideFlags: 0
