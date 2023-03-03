@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject targetPoint;
-
-    public bool matchEnded;
 
     [Header("Characters")]
     public PlayerController activePlayer;
@@ -25,6 +24,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool shouldSpawnAtRandomPoints;
     [SerializeField] private List<Transform> playerSpawnPoints = new List<Transform>();
     [SerializeField] private List<Transform> enemySpawnPoints = new List<Transform>();
+
+    [Header("LevelManagement")]
+    public bool matchEnded;
+    public string levelToLoad;
 
     private void Awake()
     {
@@ -223,6 +226,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player Wins");
 
         matchEnded = true;
+
+        PlayerInputMenu.instance.matchResultText.gameObject.SetActive(true);
+        PlayerInputMenu.instance.matchResultText.text = "GOBLIN VICTORY!";
+
+        PlayerInputMenu.instance.endBattleButton.SetActive(true);
+        PlayerInputMenu.instance.turnPointText.gameObject.SetActive(false);
     }
 
     public void PlayerLoses()
@@ -230,5 +239,16 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player Loses");
 
         matchEnded = true;
+
+        PlayerInputMenu.instance.matchResultText.gameObject.SetActive(true);
+        PlayerInputMenu.instance.matchResultText.text = "ENEMY VICTORY!";
+
+        PlayerInputMenu.instance.endBattleButton.SetActive(true);
+        PlayerInputMenu.instance.turnPointText.gameObject.SetActive(false);
+    }
+
+    public void LeaveBattle()
+    {
+        SceneManager.LoadScene(levelToLoad);
     }
 }

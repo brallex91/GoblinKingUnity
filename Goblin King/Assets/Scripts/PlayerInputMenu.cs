@@ -19,6 +19,9 @@ public class PlayerInputMenu : MonoBehaviour
 
     [SerializeField] private TMP_Text hitChanceText;
 
+    public TMP_Text matchResultText;
+    public GameObject endBattleButton;
+
     private void Awake()
     {
         instance = this;
@@ -244,5 +247,10 @@ public class PlayerInputMenu : MonoBehaviour
     {
         GameManager.instance.activePlayer.SetDefending(true);
         GameManager.instance.EndTurn();
+    }
+
+    public void LeaveBattle()
+    {
+        GameManager.instance.LeaveBattle();
     }
 }

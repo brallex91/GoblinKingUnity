@@ -182,9 +182,11 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                //ADD ENEMY SFX 
                 SFXManager.instance.PlayLaugh();
             }
-            //ADD ENEMY SFX          
+
+            GetComponent<Collider>().enabled = false;
         }
         else
         {
