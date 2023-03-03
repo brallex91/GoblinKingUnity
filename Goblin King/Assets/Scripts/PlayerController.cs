@@ -6,45 +6,48 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
-    public Vector3 moveTarget;
-    public float moveRange = 3.5f, runRange = 8f;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private Vector3 moveTarget;
+    [Range(0f, 100f)] public float moveRange = 3.5f;
+    [Range(0f, 100f)] public float runRange = 8f;
+    [SerializeField] private NavMeshAgent navMeshAgent;
+    [SerializeField] private bool isMoving;
 
-    public NavMeshAgent navMeshAgent;
-    private bool isMoving;
-
-    public bool isEnemy;
+    [Header("Combat")]
     public AIBrain brain;
+    public bool isEnemy;
 
-    public float meleeRange = 1.5f;
+    [Header("Health")]
+    [SerializeField][Range(0f, 100f)] private float maxHealth = 10f;
+    [SerializeField][Range(0f, 100f)] private float currentHealth;
+    [SerializeField] private TMP_Text healthText;
+    [SerializeField] private Slider healthSlider;
+
+    [Header("Melee")]
+    [SerializeField][Range(0f, 100f)] private float meleeDamage = 5f;
+    [SerializeField][Range(0f, 100f)] private float meleeRange = 1.5f;
     public List<PlayerController> meleeTargets = new List<PlayerController>();
     public int currentMeleeTarget;
 
-    //Health
-    public float maxHealth = 10f;
-    public float currentHealth;
-    public TMP_Text healthText;
-    public Slider healthSlider;
-
-    //Melee
-    public float meleeDamage = 5f;
-
-    //Range
-    public float range, rangeDamage;
+    [Header("Range")]
+    [SerializeField][Range(0f, 100f)] private float range;
+    [SerializeField][Range(0f, 100f)] private float rangeDamage;
     public List<PlayerController> rangeTargets = new List<PlayerController>();
     public int currentRangeTarget;
-    public Transform rangePoint;
-    public Vector3 missRange;
+    [SerializeField] private Transform rangePoint;
+    [SerializeField] private Vector3 missRange;
+    [SerializeField] private LineRenderer shootLine;
+    [SerializeField][Range(0f, 100f)] private float shotRemainTime = .5f;
+    [SerializeField] private float shotRemainCounter;
 
-    public LineRenderer shootLine;
-    public float shotRemainTime = .5f;
-    private float shotRemainCounter;
+    [Header("Defend")]
+    [SerializeField] private GameObject defendObject;
+    [SerializeField] private bool isDefending;
 
-    //Defend
-    public GameObject defendObject;
-    public bool isDefending;
-
-    public GameObject redBloodHitEffect, wallMissEffect;
+    [Header("Effects")]
+    [SerializeField] private GameObject redBloodHitEffect;
+    [SerializeField] private GameObject wallMissEffect;
 
     private void Start()
     {

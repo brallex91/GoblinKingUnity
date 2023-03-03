@@ -5,13 +5,14 @@ public class MoveGrid : MonoBehaviour
 {
     public static MoveGrid instance;
 
-    public Vector2Int spawnRange;
-    public MovePoint startPoint;
+    [SerializeField] private Vector2Int spawnRange;
+    [SerializeField] private MovePoint startPoint;
 
-    public LayerMask whatIsGround, whatIsObstacle;
-    public float obstacleCheckRange;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private LayerMask whatIsObstacle;
+    [SerializeField] private float obstacleCheckRange;
 
-    public List<MovePoint> allMovePoints = new List<MovePoint>();
+    [SerializeField] private List<MovePoint> allMovePoints = new List<MovePoint>();
 
     private void Awake()
     {

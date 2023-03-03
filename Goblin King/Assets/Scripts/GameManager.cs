@@ -5,24 +5,25 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public PlayerController activePlayer;
 
+    [Header("Characters")]
+    public PlayerController activePlayer;
     public List<PlayerController> allCharacters = new List<PlayerController>();
     public List<PlayerController> playerTeam = new List<PlayerController>();
     public List<PlayerController> enemyTeam = new List<PlayerController>();
+    [SerializeField] private int currentCharacter;
 
-    private int currentCharacter;
-
-    public int totalTurnPoints = 2;
+    [Header("TurnPoints")]
+    [SerializeField, Range(1, 10)] private int totalTurnPoints = 2;
     [HideInInspector] public int turnPointsRemaining;
+    [HideInInspector] public int currentActionCost = 1;
 
-    public int currentActionCost = 1;
+    [Header("SpawnPoints")]
+    [SerializeField] private bool shouldSpawnAtRandomPoints;
+    [SerializeField] private List<Transform> playerSpawnPoints = new List<Transform>();
+    [SerializeField] private List<Transform> enemySpawnPoints = new List<Transform>();
 
     public GameObject targetPoint;
-
-    public bool shouldSpawnAtRandomPoints;
-    public List<Transform> playerSpawnPoints = new List<Transform>();
-    public List<Transform> enemySpawnPoints = new List<Transform>();
 
     private void Awake()
     {
@@ -122,8 +123,6 @@ public class GameManager : MonoBehaviour
         {
             if (activePlayer.isEnemy == false)
             {
-                //MoveGrid.instance.ShowPointsInRange(activePlayer.moveRange, activePlayer.transform.position);
-
                 PlayerInputMenu.instance.ShowInputMenu();
             }
             else

@@ -6,15 +6,18 @@ public class PlayerInputMenu : MonoBehaviour
 {
     public static PlayerInputMenu instance;
 
-    public GameObject inputMenu, moveMenu, meleeMenu, rangeMenu;
+    [SerializeField] private GameObject inputMenu;
+    [SerializeField] private GameObject moveMenu;
+    [SerializeField] private GameObject meleeMenu;
+    [SerializeField] private GameObject rangeMenu;
 
     public TMP_Text turnPointText;
-    public TMP_Text errorText;
+    [SerializeField] private TMP_Text errorText;
 
-    public float errorDisplayTime;
+    [SerializeField] private float errorDisplayTime;
     private float errorCounter;
 
-    public TMP_Text hitChanceText;
+    [SerializeField] private TMP_Text hitChanceText;
 
     private void Awake()
     {
@@ -243,4 +246,3 @@ public class PlayerInputMenu : MonoBehaviour
         GameManager.instance.EndTurn();
     }
 }
-

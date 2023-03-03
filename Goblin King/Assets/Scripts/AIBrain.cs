@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class AIBrain : MonoBehaviour
 {
-    public PlayerController playerController;
+    [SerializeField] private PlayerController playerController;
 
-    public float waitBeforeAction = 1f, waitAfterActing = 1f, waitBeforeShoot = .75f;
+    [Header("AI Behaviour")]
+    [SerializeField, Range(0f, 100f)] private float ignoreShootChange;
+    [SerializeField, Range(0f, 100f)] private float moveRandomChance;
 
-    public float moveChance = 60f, defendChance = 25f, skipChance = 15f;
+    [Header("Timing")]
+    [SerializeField] private float waitBeforeAction;
+    [SerializeField] private float waitAfterActing;
+    [SerializeField] private float waitBeforeShoot;
 
-    [Range(0f, 100f)]
-    public float ignoreShootChange, moveRandomChance;
+    [Header("Chances")]
+    [SerializeField, Range(0f, 100f)] private float moveChance;
+    [SerializeField, Range(0f, 100f)] private float defendChance;
+    [SerializeField, Range(0f, 100f)] private float skipChance;
 
     public void SelectAction()
     {
@@ -169,10 +176,6 @@ public class AIBrain : MonoBehaviour
                 GameManager.instance.currentActionCost = GameManager.instance.turnPointsRemaining;
 
                 StartCoroutine(WaitToEndAction(waitAfterActing));
-
-
-
-
             }
             else
             {

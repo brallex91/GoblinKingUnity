@@ -4,18 +4,19 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
 
-    public float moveSpeed, manualMoveSpeed = 15f;
-    private Vector3 moveTarget;
-    private Vector2 moveInput;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float manualMoveSpeed = 15f;
+    [SerializeField] private float rotateSpeed = 10f;
 
-    private float targetRotation;
-    private float currentAngle;
-    public float rotateSpeed;
+    [SerializeField] private Transform theCamera;
+    [SerializeField] private float rangeCameraViewAngle = 30f;
 
-    public Transform theCamera;
-    public float rangeCameraViewAngle = 30f;
-    private float targetCameraViewAngle;
-    private bool isRangeView;
+    [SerializeField] private bool isRangeView;
+    [SerializeField] private Vector3 moveTarget;
+    [SerializeField] private Vector2 moveInput;
+    [SerializeField] private float targetRotation;
+    [SerializeField] private float targetCameraViewAngle;
+    [SerializeField] private float currentAngle;
 
     private void Awake()
     {
