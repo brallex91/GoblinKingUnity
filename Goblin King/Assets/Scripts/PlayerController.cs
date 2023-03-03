@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject redBloodHitEffect;
     [SerializeField] private GameObject wallMissEffect;
 
+    [Header("Animations")]
+    [SerializeField] private Animator animator;
+
     private void Start()
     {
         moveTarget = transform.position;
@@ -76,6 +79,8 @@ public class PlayerController : MonoBehaviour
                     isMoving = false;
 
                     GameManager.instance.FinishedMovement();
+
+                    animator.SetBool("isWalking", false);
                 }
             }
         }
@@ -97,6 +102,8 @@ public class PlayerController : MonoBehaviour
 
         navMeshAgent.SetDestination(moveTarget);
         isMoving = true;
+
+        animator.SetBool("isWalking", true);
     }
 
     public void GetMeleeTargets()
@@ -133,6 +140,8 @@ public class PlayerController : MonoBehaviour
     public void DoMelee()
     {
         meleeTargets[currentMeleeTarget].TakeDamage(meleeDamage);
+
+        animator.SetTrigger("doMelee");
     }
 
     public void TakeDamage(float damageToTake)
@@ -150,8 +159,6 @@ public class PlayerController : MonoBehaviour
 
             navMeshAgent.enabled = false;
 
-            transform.rotation = Quaternion.Euler(-70f, transform.rotation.eulerAngles.y, 0f);
-
             GameManager.instance.allCharacters.Remove(this);
             if (GameManager.instance.playerTeam.Contains(this))
             {
@@ -161,6 +168,13 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.instance.enemyTeam.Remove(this);
             }
+
+            animator.SetTrigger("die");
+        }
+        else
+        {
+            // Insert take-damage animation here
+            //animator.SetTrigger("takeDamage");
         }
 
         UpdateHealthDisplay();

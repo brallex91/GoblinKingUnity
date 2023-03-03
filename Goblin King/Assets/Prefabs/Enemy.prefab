@@ -237,11 +237,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 5687485042318154605}
+  ignoreShootChange: 20
+  moveRandomChance: 20
   waitBeforeAction: 1
   waitAfterActing: 1
   waitBeforeShoot: 0.75
   moveChance: 60
   defendChance: 25
   skipChance: 15
-  ignoreShootChange: 100
-  moveRandomChance: 20
